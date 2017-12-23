@@ -9,6 +9,12 @@ package adt;
  *
  * @author DANSO
  */
-public interface OrderSortedListInterface<T> {
+public interface OrderSortedListInterface<T extends Comparable<? super T>> {
+    public boolean add(T newEntry);
+    public T getEntry(int givenPosition);
+    public T remove(int givenPosition);
+    public int getNumberOfEntries() ;
+    public boolean isEmpty();
+    public boolean contains(T anEntry) ;
     
 }

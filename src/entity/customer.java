@@ -9,7 +9,7 @@ package entity;
  *
  * @author DANSO
  */
-public class customer {
+public class customer implements Comparable<customer>{
     private String cusId;
     private String cusPass;
     private String cusName;
@@ -73,6 +73,11 @@ public class customer {
 
     public void setPosCode(int posCode) {
         this.posCode = posCode;
+    }
+
+    @Override
+    public int compareTo(customer o) {
+        return this.cusId.compareTo(o.cusId); //To change body of generated methods, choose Tools | Templates.
     }
     
 
