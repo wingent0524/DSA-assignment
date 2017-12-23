@@ -1,5 +1,7 @@
 package driver;
 
+import adt.OrderSortedLinkedList;
+import adt.OrderSortedListInterface;
 import adt.SortedDoublyLinkedList;
 import entity.Affiliate;
 import entity.Food;
@@ -21,22 +23,15 @@ import java.util.Scanner;
  */
 public class UserStory1 {
 
-    public static ListInterface<order> orderList = new List<>();
+    public static OrderSortedListInterface<order> orderList = new OrderSortedLinkedList<>();
     private SortedDoublyLinkedList<Affiliate> affiliate = new SortedDoublyLinkedList<>();
     public static SortedDoublyLinkedList<Food> food = new SortedDoublyLinkedList<>();
-    public static ListInterface<customer> customer = new List<>();
+    public static OrderSortedListInterface<customer> customer = new OrderSortedLinkedList<>();
 
     private static customer curCustomer;
 
-    //private static String[] resaArray = {"A1. Chicken Chop-RM10.90", "A2. Fish & Chip-RM10.90", "A3. Lamb Chop-RM18.90", "A4. Steak-RM18.90"};
-    //private static String[] resbArray = {"B1. 1/4 Chicken-RM17.90", "B2. 1/2 Chicken-RM27.90", "B3. Whole Chicken-RM43.90", "B4. 5 Chicken Wings-RM26.90"};
-    //private static String[] rescArray = {"C1. 2pc Combo-RM11.90", "C2. 3pc Combo-RM14.90", "C3. Zinger set-RM13.90", "C4. 9pc Family Combo-Rm49.90"};
-    //private static String[] resdArray = {"D1. Mc Chicken set-RM8.90", "D2. Double Cheeseburger set-RM10.90", "D3. 2pc Ayam Goreng set-RM12.90", "D4. Fish burger set-Rm14.90"};
-
-    //public UserStory1(SortedDoublyLinkedList<Affiliate> getaffiliate,ListInterface<Food> getfood) {
-
-    public UserStory1(SortedDoublyLinkedList<Affiliate> getaffiliate, SortedDoublyLinkedList<Food> getfood, ListInterface<customer> getCust) {
-
+    public UserStory1(SortedDoublyLinkedList<Affiliate> getaffiliate, SortedDoublyLinkedList<Food> getfood, OrderSortedListInterface<customer> getCust, OrderSortedListInterface<order> getOrder) {
+        this.orderList = getOrder;
         this.affiliate = getaffiliate;
         this.food = getfood;
         this.customer = getCust;
@@ -45,33 +40,7 @@ public class UserStory1 {
     UserStory1(SortedDoublyLinkedList<Affiliate> affiliate, SortedDoublyLinkedList<Food> food) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    /*public void orderMenu() {
- master
-        Scanner user = new Scanner(System.in);
-        String mn;
-        mainRestaurant();
-        System.out.println("Enter your option>");
-        mn = user.nextLine();
-        for (int i = 1; i <= food.getNumberOfEntries(); i++) {
-            if (mn.equals(food.getEntry(i).getRestaurant().getRes_name())) {
-                mainBlue();
-                for (int a = 1; a <= food.getNumberOfEntries(); a++) {
-                    System.out.println(food.getEntry(a).toString());
-                }
-                System.out.println("Back");
-                System.out.println("Enter your option>");
-                mn = user.nextLine();
-                if (mn.equals("Back")) {
-                    mainRestaurant();
-                } else {
-                    mainRestaurant();
-                }
-            } else {
 
-            }
-        }
-    }*/
     public boolean custLogin() {
         Scanner login = new Scanner(System.in);
         int idcount = 0;
@@ -113,26 +82,27 @@ public class UserStory1 {
     public void show() {
         //order.toString();
         for (int i = 1; i <= orderList.getNumberOfEntries(); i++) {
-            System.out.printf(orderList.getEntry(i).toString());
+            if (curCustomer.getCusId().equalsIgnoreCase(orderList.getEntry(i).getCustInfo().getCusId()) && orderList.getEntry(i).getStatus().equals("Completed")) {
+                System.out.printf(orderList.getEntry(i).toString());
+            }
         }
     }
 
     public void mainRestaurant() {
         System.out.println("==========Fastest Delivery System==========");
-
-        for(int i=1;i<=affiliate.getSize();i++){
-           System.out.println(affiliate.getAtPosition(i).getRes_name());
-
+        for (int i = 1; i <= affiliate.getSize(); i++) {
+            System.out.println(affiliate.getAtPosition(i).getRes_name());
         }
         System.out.println("Back");
     }
 
-    public void mainBlue() {
+    public static void mainBlue() {
         System.out.println("==========Fastest Delivery System==========");
 
     }
 
     public void orderF() {
+        boolean valid = true;
         order temp = null;
         Scanner order1 = new Scanner(System.in);
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -146,7 +116,6 @@ public class UserStory1 {
         String food1 = null;
         int i = 0;
         String statusD = "Pending";
-        //String statusD1 = "OrderCancel";
         int foodAmt = 0;
         int orId = orderList.getNumberOfEntries();
         char option;
@@ -156,17 +125,16 @@ public class UserStory1 {
         for (int c = 1; c <= affiliate.getSize(); c++) {
             System.out.println(affiliate.getAtPosition(c).getRes_name());
         }
+        System.out.println("Please type in restaurant name!!");
         System.out.print("Restaurant Name: ");
         resName = order1.nextLine();
         int r;
         do {
             r = -1;
-            for (int a = 1; a <= food.getSize()&& r == -1; a++) {
-                if (resName.equals(food.getAtPosition(a).getRestaurant().getRes_name())) {
+            for (int a = 1; a <= food.getSize(); a++) {
+                if (resName.equals(food.getAtPosition(a).getRestaurant().getRes_name()) && food.getAtPosition(a).getFoodAVA().equals("YES")) {
                     r = a;
-                    for (int e = 1; e <= food.getSize(); e++) {
-                        System.out.println(food.getAtPosition(e).toString());
-                    }
+                    System.out.println(food.getAtPosition(a).toString1());
                 }
             }
             if (r == -1) {
@@ -179,19 +147,35 @@ public class UserStory1 {
         System.out.println("Order ID: " + order_id);
         System.out.print("Name: ");
         name = order1.nextLine();
-        System.out.print("Phone Number: ");
-        phone = Integer.parseInt(order1.nextLine());
+        do{
+        try{
+            System.out.print("Phone Number: ");
+            phone = Integer.parseInt(order1.nextLine());
+            valid = true;
+        }catch(Exception ex){
+            System.out.println("Please enter number only!!");
+            valid = false;
+        }
+        }while(!valid);
         System.out.println("Address: ");
         address = order1.nextLine();
-        System.out.print("Postcode: ");
-        post = Integer.parseInt(order1.nextLine());
+        do{
+        try{
+            System.out.print("Postcode: ");
+            post = Integer.parseInt(order1.nextLine());
+            valid = true;
+        }catch(Exception ex){
+            System.out.println("Please enter number only!!");
+            valid = false;
+        }
+        }while(!valid);
         System.out.print("Food ID: ");
         food1 = order1.nextLine();
 
         int f;
         do {
             f = -1;
-            for (int b = 1; b <= food.getSize()&& f == -1; b++) {
+            for (int b = 1; b <= food.getSize() && f == -1; b++) {
                 if (food1.equals(food.getAtPosition(b).getFoodID())) {
                     f = b;
                 }
@@ -203,8 +187,16 @@ public class UserStory1 {
             }
         } while (f == -1);
 
-        System.out.print("Food Amount: ");
-        foodAmt = Integer.parseInt(order1.nextLine());
+        do{
+        try{
+            System.out.print("Food Amount: ");
+            foodAmt = Integer.parseInt(order1.nextLine());
+            valid = true;
+        }catch(Exception ex){
+            System.out.println("Please enter number only!!");
+            valid = false;
+        }
+        }while(!valid);
         for (int d = 1; d <= food.getSize(); d++) {
             if (food1.equals(food.getAtPosition(d).getFoodID())) {
                 totalP = food.getAtPosition(d).getPrice() * foodAmt;
@@ -218,8 +210,17 @@ public class UserStory1 {
             if (option == 'y') {
                 System.out.print("Food: ");
                 food1 = order1.nextLine();
+            do{
+            try{
                 System.out.print("Food Amount: ");
                 foodAmt = Integer.parseInt(order1.nextLine());
+                valid = true;
+            }catch(Exception ex){
+                System.out.println("Please enter number only!!");
+                valid = false;
+              
+            }
+            }while(!valid);
                 for (int d = 1; d <= food.getSize(); d++) {
                     if (food1.equals(food.getAtPosition(d).getFoodID())) {
                         totalP = food.getAtPosition(d).getPrice() * foodAmt;
@@ -239,42 +240,27 @@ public class UserStory1 {
         System.out.printf("%-20s %-15s\n", "Food ID", "Quantity");
         System.out.println("------------------------------");
         for (int g = 1; g <= orderList.getNumberOfEntries(); g++) {
-            if (curCustomer.getCusId().equalsIgnoreCase(orderList.getEntry(g).getCustInfo().getCusId())) {
-                System.out.printf("%-20s %-8d\n", orderList.getEntry(g).getFood(),orderList.getEntry(g).getFoodAmt());
+            if (curCustomer.getCusId().equalsIgnoreCase(orderList.getEntry(g).getCustInfo().getCusId()) && order_id.equals(orderList.getEntry(g).getOrderId())) {
+                System.out.printf("%-20s %-8d\n", orderList.getEntry(g).getFood(), orderList.getEntry(g).getFoodAmt());
                 subTotal += orderList.getEntry(g).getToPrice();
             }
         }
-        System.out.printf("Total price : RM %.2f",subTotal);
+        System.out.printf("Total price : RM %.2f", subTotal);
         System.out.println("Do you comfirm the order?[y/n]");
         option2 = order1.nextLine();
         if (option2.equals("y")) {
             System.out.println("Order Sucessfully added!");
         } else if (option2.equals("n")) {
-            //do{
-            for (int b = 1; b <= orderList.getNumberOfEntries(); b++) {
-                if (order_id.equals(orderList.getEntry(b).getOrderId())) {
-                    orderList.remove(b);
-                    b--;
-                }
+            for (int h = 1; h <= orderList.getNumberOfEntries(); h++) {
+                if (order_id.equals(orderList.getEntry(h).getOrderId())) {
+                    orderList.remove(h);
+                    h--;
+                }        
             }
             System.out.println("Order has been cancel!");
         }
-        
+
     }
 
-    
 }
-
-//    for(int b = 1;b<=orderList.getNumberOfEntries();b++){
-//                    if(order_id.equals(orderList.getEntry(b).getOrderId())){
-//                        //temp = new order(order_id,name,phone,address,post,food1,foodAmt,totalP,todaydate,statusD,null,curCustomer);
-//                        orderList.remove(b); 
-//                        }
-//                    }
-//int totalOrder=0;
-//                do{
-//                    System.out.println(orderList.getEntry(totalOrder).getOrderId());
-//                    orderList.remove(totalOrder); 
-//                    totalOrder++;
-//                }while(totalOrder<=orderList.getNumberOfEntries());
 
