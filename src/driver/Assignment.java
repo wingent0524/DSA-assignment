@@ -327,7 +327,7 @@ public class Assignment {
         System.out.println("5. Update delivery man details");
         System.out.println("6. Assign job for delivery man");
         System.out.println("7. View pending deliveries");
-        System.out.println("8. View daily report");
+        System.out.println("8. View report");
         System.out.println("9. View Summary report");
         System.out.println("0. -- Log out --");
         System.out.println("====================================\n");
@@ -396,7 +396,7 @@ public class Assignment {
                 viewPendingDeliveries();
                 break;
             case 8:
-                viewDailyReport();
+                viewReport();
                 break;
             case 9:
                 GenerateMenuSummRpt();;
@@ -410,6 +410,31 @@ public class Assignment {
 
         }
 
+    }
+    
+    public void viewReport(){
+        int selection = 0;
+        Scanner scanner  = new Scanner(System.in);
+        System.out.println("1. Daily delivery man report");
+        System.out.println("2. Top 3 best delivery man");
+     
+            System.out.print("Enter your selection: ");
+            selection = scanner.nextInt();
+            while (selection < 1 || selection > 2) {
+                    System.out.print("Please enter number 1-2: ");
+                    selection = sc.nextInt();
+                }
+            switch(selection){
+                case 1:
+                    viewDailyReport();
+                    break;
+                case 2:
+                    viewExceptionReport();
+                    break;
+                default:
+                     System.out.print("Please select your choice (1-2) !\n");
+            }
+       
     }
 
     public static void customerMenu() {
@@ -541,7 +566,7 @@ public class Assignment {
                 System.out.println("3. Back to HR main page");
                 System.out.print("\nYour choice: ");
                 choice = sc.nextInt();
-                while (choice < 0 || choice > 3) {
+                while (choice < 1 || choice > 3) {
                     System.out.print("Please enter number 1-3: ");
                     choice = sc.nextInt();
                 }
@@ -647,7 +672,11 @@ public class Assignment {
     }
 
     public void viewDailyReport(){
-
+        
+         String option ="";
+      do{
+          
+         dReport.clear();
        int count =0;
        int num = 1;
        int distance = 0;
@@ -658,6 +687,7 @@ public class Assignment {
        String orderTime = "";
        int dmID = 0;
        int deli = 0;
+      
      
        int reportData = 0;
        String orderDMHPNo = "";
@@ -713,20 +743,12 @@ public class Assignment {
         }
             
                 if(totalDistance == 0){
-//                      dm.setDayTotalDeliveries(0);
-//                      manList.remove(i);
-//                      manList.add(dm);
+
                     
                 }else{
                     DailyReport dr = new DailyReport(dmID,orderDM,orderDMHPNo,count, totalDistance);
                     dReport.add(dr);
-//                    dm.setDayTotalDeliveries(count);
-//                    manList.remove(i);
-//                    manList.add(dm);
-                   
-                       
-                    
-//                    System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,dmID,orderDM,orderDMHPNo,dm.getDayTotalDeliveries(), totalDistance);
+ 
                     reportData++;
                     
                     grandDeliveries += count;
@@ -736,10 +758,6 @@ public class Assignment {
                 }
                
        }
-        
-         
-         
-         
      
          if(reportData == 0){
              System.out.println("No record available!");
@@ -762,13 +780,35 @@ public class Assignment {
          System.out.printf("%48s %27s %3d km \n","","Grand Total Distances Travelled  :",grandDistance);
          }
 //         System.out.println("       \t\t\t\t\t\t\t\tGrand Total Deliveries:"+grandDeliveries);
-        System.out.println("------------------------------------------------------------------------------------------\n");
+        System.out.println("\n------------------------------------------------------------------------------------------\n");
         System.out.println("\t\t\t\t     END OF REPORT");
         System.out.println("\t\t\t    Generated at: "+dateFormat.format(date)+"\n\n\n");
 //        System.out.println("==========================================================================================");
          
 //            
+        
+      System.out.print("Do you wish to continue?(y/n): ");
+                Scanner scanner1 = new Scanner(System.in);
+                option = scanner1.nextLine();
+
+            } while (option.equals("y"));
+}
+    
+    public void viewExceptionReport(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        System.out.println("\n\t\t\t     TOP 3 BEST DELIVERY MAN\n");
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.printf("%3s %5s      %-20s %-15s %-10s %-20s\n","No","ID","Name","Contact No.","Rating","Total Distance");
+        System.out.println("------------------------------------------------------------------------------");
+        for(int i = 1;i <= 3; i++){
+            DeliveryMan dm = manList.getEntry(i);
+            System.out.printf("%3d %5d      %-20s %-15s %.1f %10d\n",i,dm.getManID(),dm.getName(),dm.getContactNum(),dm.getRating(), dm.getTotalDeliveries());
         }
+        System.out.println("------------------------------------------------------------------------------\n");
+        System.out.println("\t\t\t         END OF REPORT");
+        System.out.println("\t\t       Generated at: "+dateFormat.format(date)+"\n\n\n");
+    }
     
     public void addUser() {
         staffview.setUserList(manList); 
