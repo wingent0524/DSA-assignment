@@ -20,6 +20,7 @@ import adt.OrderSortedLinkedList;
 import adt.OrderSortedListInterface;
 import adt.SortedDoublyLinkedList;
 import entity.Affiliate;
+import entity.DailyReport;
 import entity.Food;
 import java.util.ArrayList;
 import entity.order;
@@ -35,6 +36,7 @@ import entity.SummaryReport;
 public class Assignment {
 
     public static DMSortedListInterface<DeliveryMan> manList = new DMSortedLinkedList<>();
+    public static DMSortedListInterface<DailyReport> dReport = new DMSortedLinkedList<>();
 //    public static ListInterface<DeliveryMan> manList = new List<>();
     public static ListInterface<HR> HRList = new List<>();
     public static OrderSortedListInterface<order> orderL = new OrderSortedLinkedList<>();
@@ -62,10 +64,10 @@ public class Assignment {
         HRList.add(hr);
         HRList.add(hr1);
         
-        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 2.0,50,2);
-        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 3.0,50,1);
-        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 3.0,50,2);
-        DeliveryMan deliMan3 = new DeliveryMan(40, "Jack", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 2.0,50,3);
+        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 2, 2.0, 50);
+        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 2, 3.0, 50);
+        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 3.0, 50);
+        DeliveryMan deliMan3 = new DeliveryMan(40, "Jack", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 2.0, 50);
         
         manList.add(deliMan);
         manList.add(deliMan1);
@@ -115,17 +117,29 @@ public class Assignment {
         customer cust1= new customer("C0001","123","Tan",0123,"Jalan raya",12345);
         customer.add(cust1);
 
-        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
-        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Completed", deliMan3,customer.getEntry(1));
-        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
-        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan1,customer.getEntry(1));
+        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan1,customer.getEntry(1));
+        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Completed", deliMan1,customer.getEntry(1));
+        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
+        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
         order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
+        order order5 = new order("P0006", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan3,customer.getEntry(1));
+        order order6 = new order("P0007", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Completed", deliMan3,customer.getEntry(1));
+        order order7 = new order("P0008", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan3,customer.getEntry(1));
+        order order8 = new order("P0009", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
+        order order9 = new order("P0010", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
         
         orderL.add(order);
         orderL.add(order1);
         orderL.add(order2);
         orderL.add(order3);
         orderL.add(order4);
+        orderL.add(order5);
+        orderL.add(order6);
+        orderL.add(order7);
+        orderL.add(order8);
+        orderL.add(order9);
+        
+        
     }
 
     public void mainMenu() {
@@ -567,7 +581,7 @@ public class Assignment {
         boolean data = false;
          for (int i = 1; i <= manList.getLength(); i++) {
                  DeliveryMan dm = manList.getEntry(i);
-                 if(dm.getDeliveryAssigned()>=1)
+                 if(dm.getDeliveryAssigned()>0)
                     data = true;
                  else
                     data = false;
@@ -606,15 +620,16 @@ public class Assignment {
                     }
                 }
                 
-                if(gtPendingOrder = true){
-                 System.out.printf("%10s \t%-15s %-25s %-15s %-15s %-10s\n","OrderID", "Name", "Address", "Postcode", "OrderTime", "OrderStatus");
-                 System.out.printf("%10s \t%-15s %-25s %-15s %-15s %-10s\n","-------", "----", "-------", "--------", "---------", "-----------");
+                if(gtPendingOrder == true){
+                 System.out.printf("%10s \t%-15s %-25s %-15s %-25s %-10s\n","OrderID", "Name", "Address", "Postcode", "OrderTime", "OrderStatus");
+                 System.out.printf("%10s \t%-15s %-25s %-15s %-25s %-10s\n","-------", "----", "-------", "--------", "-------------------", "-----------");
                 for (int i = 1; i <= orderL.getNumberOfEntries(); i++) {
                     order order = orderL.getEntry(i);
-                    if (name.equals(orderL.getEntry(i).getDeliveryMan().getName())) {
-                       
-                        String st = String.format("%10s \t%-15s %-25s %-15s %-15s %-10s", order.getOrderId(), order.getName(), order.getAddress(), order.getPostCode(), order.getOrderTime(), order.getOrderTime());
+                    if (name.equals(orderL.getEntry(i).getDeliveryMan().getName() )) {
+                       if(orderL.getEntry(i).getStatus().equals("Pending")){
+                        String st = String.format("%10s \t%-15s %-25s %-15s %-25s %-10s", order.getOrderId(), order.getName(), order.getAddress(), order.getPostCode(), order.getOrderTime(), order.getStatus());
                         System.out.println(st);
+                       }
 
                     }
 
@@ -630,7 +645,7 @@ public class Assignment {
                      
         }
     }
-    
+
     public void viewDailyReport(){
 
        int count =0;
@@ -698,15 +713,20 @@ public class Assignment {
         }
             
                 if(totalDistance == 0){
-                      dm.setDayTotalDeliveries(0);
-                      manList.remove(i);
-                      manList.add(dm);
+//                      dm.setDayTotalDeliveries(0);
+//                      manList.remove(i);
+//                      manList.add(dm);
                     
                 }else{
-                    dm.setDayTotalDeliveries(count);
-                    manList.remove(i);
-                    manList.add(dm);
-                    System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,dmID,orderDM,orderDMHPNo,dm.getDayTotalDeliveries(), totalDistance);
+                    DailyReport dr = new DailyReport(dmID,orderDM,orderDMHPNo,count, totalDistance);
+                    dReport.add(dr);
+//                    dm.setDayTotalDeliveries(count);
+//                    manList.remove(i);
+//                    manList.add(dm);
+                   
+                       
+                    
+//                    System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,dmID,orderDM,orderDMHPNo,dm.getDayTotalDeliveries(), totalDistance);
                     reportData++;
                     
                     grandDeliveries += count;
@@ -714,15 +734,24 @@ public class Assignment {
                     num++;
                    
                 }
-                    
-                
-                  
-            
+               
        }
+        
+         
+         
+         
      
          if(reportData == 0){
              System.out.println("No record available!");
+         }else{
+              for(int k = 1; k <= dReport.getLength(); k++){
+                  
+                    DailyReport dr = dReport.getEntry(k);
+                      System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",k,dr.getManID(),dr.getDeliName(),dr.getDeliContactNo(),dr.getTotalDeliveries(), dr.getTotalDistances());
+                      
+              }
          }
+         
 //         System.out.println("==========================================================================================");
          System.out.println("\n------------------------------------------------------------------------------------------");
          if(grandDeliveries == 0){
