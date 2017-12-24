@@ -16,6 +16,8 @@ import driver.UserStory1;
 import static driver.UserStory1.orderList;
 import adt.DMSortedLinkedList;
 import adt.DMSortedListInterface;
+import adt.OrderSortedLinkedList;
+import adt.OrderSortedListInterface;
 import adt.SortedDoublyLinkedList;
 import entity.Affiliate;
 import entity.Food;
@@ -35,9 +37,9 @@ public class Assignment {
     public static DMSortedListInterface<DeliveryMan> manList = new DMSortedLinkedList<>();
 //    public static ListInterface<DeliveryMan> manList = new List<>();
     public static ListInterface<HR> HRList = new List<>();
-    public static ListInterface<order> orderL = new List<>();
-    public static ListInterface<customer> customer = new List<>();
-    private UserStory1 a = new UserStory1(affiliate, food, customer);
+    public static OrderSortedListInterface<order> orderL = new OrderSortedLinkedList<>();
+    public static OrderSortedListInterface<customer> customer = new OrderSortedLinkedList<>();
+    private UserStory1 a = new UserStory1(affiliate, food, customer,orderL);
     //***************************module A***********************************
     private static SortedDoublyLinkedList<Affiliate> affiliate = new SortedDoublyLinkedList<>();
     public static SortedDoublyLinkedList<Food> food = new SortedDoublyLinkedList<>();
@@ -105,12 +107,12 @@ public class Assignment {
         
         food.insert(new Food("F0001", "Steak", 20.00, "Snack", "YES", affiliate.getAtPosition(4), "YES"));
         food.insert(new Food("F0002", "Pumpkin soup", 30.00, "Desert", "YES", affiliate.getAtPosition(4), "NO"));
-        food.insert(new Food("F0003", "beef soup", 100.00, "Desert", "YES", affiliate.getAtPosition(3), "NO"));
+        food.insert(new Food("F0003", "beef soup", 100.00, "Desert", "YES", affiliate.getAtPosition(4), "NO"));
              
 
 
 
-        customer cust1= new customer("C0000","123","Tan",0123,"Jalan raya",12345);
+        customer cust1= new customer("C0001","123","Tan",0123,"Jalan raya",12345);
         customer.add(cust1);
 
         order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
@@ -118,18 +120,12 @@ public class Assignment {
         order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
         order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan1,customer.getEntry(1));
         order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
-        order order5 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
-        order order6 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan3,customer.getEntry(1));
-        order order7 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan3,customer.getEntry(1));
         
         orderL.add(order);
         orderL.add(order1);
         orderL.add(order2);
         orderL.add(order3);
         orderL.add(order4);
-        orderL.add(order5);
-        orderL.add(order6);
-        orderL.add(order7);
     }
 
     public void mainMenu() {
@@ -404,29 +400,24 @@ public class Assignment {
 
     public static void customerMenu() {
         System.out.println("=======================");
-        System.out.println("1. View Order Mmenu");
-        System.out.println("2. Place Order");
-        System.out.println("3. Show Order");
-        System.out.println("4. Check delivery order reamaining time");
-        System.out.println("5. -- Log out --");
+        System.out.println("1. Place Order");
+        System.out.println("2. Show Completed Order");
+        System.out.println("3. Check delivery order reamaining time");
+        System.out.println("4. -- Log out --");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
         cusMenu = sc.nextLine();
-        UserStory1 us1 = new UserStory1(affiliate, food, customer);
+        UserStory1 us1 = new UserStory1(affiliate, food, customer,orderL);
         switch (cusMenu) {
             case "1": {
-                //us1.orderMenu();
-                break;
-            }
-            case "2": {
                 us1.order1();
                 break;
             }
-            case "3": {
+            case "2": {
                 us1.show();
                 break;
             }
-            case "4": {
+            case "3": {
                 checkTime();
                 break;
             }

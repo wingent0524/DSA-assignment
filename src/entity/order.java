@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author DANSO
  */
-public class order {
+public class order implements Comparable<order>{
     private String orderId;
     private String name;
     private int phone;
@@ -137,5 +137,10 @@ public class order {
     
     public String toString(){
         return String.format("Order ID: %s\n Customer Name: %s\n Customer Phone: %d\n Customer Address: %s\n Ordered Food: %s\n Ordered Food Amount: %d\n Total Price: %.2f\n Ordered Time: %s\n Status: %s\n DM: %s\n",orderId,name,phone,address,food,foodAmt,toPrice,orderTime,status,deliveryMan);
+    }
+    
+    @Override
+    public int compareTo(order o) {
+        return this.status.compareTo(o.status); //To change body of generated methods, choose Tools | Templates.
     }
 }

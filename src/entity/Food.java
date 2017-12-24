@@ -93,6 +93,10 @@ public class Food implements Comparable<Food>{
         return String.format(" %10s %20s %13s %15s %10s %10s\n", foodID, foodName, formatPrice, Category, foodAVA, promotion);
     }
     
+    public String toString1(){
+        return String.format("%s - %s - %s",foodID,foodName,Price);
+    }
+    
     public int compareTo(Food food) {
         if(Category.compareTo(food.getCategory()) < 0){
             return 1;
