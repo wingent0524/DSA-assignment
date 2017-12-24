@@ -37,8 +37,8 @@ public class Assignment {
 
     public static DMSortedListInterface<DeliveryMan> manList = new DMSortedLinkedList<>();
     public static DMSortedListInterface<DailyReport> dReport = new DMSortedLinkedList<>();
+    public static DMSortedListInterface<HR> HRList = new DMSortedLinkedList<>();
 //    public static ListInterface<DeliveryMan> manList = new List<>();
-    public static ListInterface<HR> HRList = new List<>();
     public static OrderSortedListInterface<order> orderL = new OrderSortedLinkedList<>();
     public static OrderSortedListInterface<customer> customer = new OrderSortedLinkedList<>();
     private UserStory1 a = new UserStory1(affiliate, food, customer,orderL);
@@ -244,7 +244,7 @@ public class Assignment {
         String id = sc.nextLine();
         System.out.print("HR Password: ");
         String pw = sc.nextLine();
-            for (int i = 1; i <= HRList.getNumberOfEntries(); i++) {
+            for (int i = 1; i <= HRList.getLength(); i++) {
                 HR hr = HRList.getEntry(i);
                 if(id.equals(hr.getStaffID()) && pw.equals(hr.getPassword())){
                     displayMenu();
