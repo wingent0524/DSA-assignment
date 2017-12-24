@@ -9,7 +9,7 @@ package entity;
  *
  * @author MSI-
  */
-public class HR {
+public class HR implements Comparable<HR>{
     private String staffID;
     private String password;
 
@@ -36,6 +36,11 @@ public class HR {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public int compareTo(HR o) {
+      return this.getStaffID().compareTo(o.getStaffID());
     }
     
     
