@@ -5,7 +5,6 @@ import entity.DeliveryMan;
 public class DMSortedLinkedList<T extends Comparable<? super T>> implements DMSortedListInterface<T> {
 
   private Node firstNode;
-  private Node tempFirstNode;
   private int length;
 
   public DMSortedLinkedList() {
